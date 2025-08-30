@@ -37,22 +37,6 @@ export default function Projects() {
   const list = projects ?? [];
   return (
     <div>
-      <section className="bg-gradient-to-b from-brand.orange/10 to-transparent">
-        <div className="max-w-5xl mx-auto px-4 py-12">
-          <motion.h1
-            className="text-3xl md:text-4xl font-extrabold text-brand.blue"
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-          >
-            Projects
-          </motion.h1>
-          <p className="mt-3 text-brand.blue/90">
-            Selected software and data projects. Edit{" "}
-            <code className="rounded px-1 py-0.5 bg-brand.orange/10 border border-brand.blue/10">src/data/projects.js</code>.
-          </p>
-        </div>
-      </section>
-
       <Section title="All Projects">
         {list.length === 0 ? (
           <div className="text-brand.blue/80">
