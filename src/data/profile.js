@@ -24,6 +24,8 @@ export const profile = {
       role: "Visiting Scholar",
       org: "University of Waterloo",
       period: "Jul 2025 — Present",
+      image: "/exp/uwaterloo.jpg",
+      link: "https://uwaterloo.ca/",
       bullets: [
         "Built Python apps with Transformers & vLLM to integrate LLMs with SQL/PostgreSQL.",
         "Implemented REST API for GPT-4 semantic query rewriting to improve SQL performance.",
@@ -34,6 +36,8 @@ export const profile = {
       role: "Frontend Developer Intern",
       org: "All for One Egypt",
       period: "Sep 2024",
+      image: "/allforone.jpg",
+      link: "https://www.linkedin.com/company/all-for-one-egypt/",
       bullets: [
         "Built responsive web apps with Angular, TypeScript, HTML, CSS.",
         "Refactored UI components to improve modularity.",
@@ -44,6 +48,8 @@ export const profile = {
       role: "IS & Infrastructure Intern",
       org: "National Bank of Egypt",
       period: "Jul 2024 — Aug 2024",
+      image: "/nbe.jpg",
+      link: "https://www.nbe.com.eg/",
       bullets: [
         "Automated log analysis with Python + SQL.",
         "Prototyped anomaly detection for server monitoring.",
@@ -54,6 +60,8 @@ export const profile = {
       role: "System Engineer Intern",
       org: "Wakalex for Industry & Trade",
       period: "Jul 2022 — Aug 2022",
+      image: "/wakalex.jpg",
+      link: "https://wakalex.com/",
       bullets: [
         "Programmed Arduino microcontrollers (C++) for automation.",
         "Calibrated sensors and improved diagnostics.",
@@ -64,6 +72,8 @@ export const profile = {
       role: "Product Development Intern",
       org: "Ongineering Co.",
       period: "Mar 2020 — Jul 2020",
+      image: "/ongineering.jpg",
+      link: "https://www.linkedin.com/company/ongineeringco/",
       bullets: [
         "Developed Raspberry Pi Python scripts for IoT COVID-19 alert prototype.",
         "Built dashboard with HTML/CSS/JS for exposure data.",
