@@ -27,6 +27,9 @@ function IconDownload(props) {
 export default function Education() {
   const education = Array.isArray(profile.education) ? profile.education : [];
 
+  // Detect mobile (simple check)
+  const isMobile = typeof window !== "undefined" && /Mobi|Android/i.test(navigator.userAgent);
+
   return (
     <Section title="Education">
       <div className="space-y-6">
@@ -92,52 +95,63 @@ export default function Education() {
                   )}
                 </div>
 
-                {/* PDF preview with fallback */}
+                {/* PDF preview with auto-fallback */}
                 {projectPdf && (
                   <div className="lg:col-span-2">
-                    <div className="relative group rounded-xl border overflow-hidden shadow-sm">
-                      <embed
-                        src={`${projectPdf}#toolbar=0&navpanes=0&scrollbar=0`}
-                        type="application/pdf"
-                        className="w-full h-64 lg:h-72"
-                        onError={(e) => {
-                          // hide embed if not supported
-                          e.target.style.display = "none";
-                          const fallback = e.target.nextSibling;
-                          if (fallback) fallback.style.display = "flex";
-                        }}
-                      />
-                      {/* Fallback overlay (hidden until embed fails) */}
-                      <div
-                        style={{ display: "none" }}
-                        className="absolute inset-0 flex items-center justify-center bg-black/40 text-white text-sm md:text-base font-medium"
-                      >
-                        PDF preview not available —
+                    {!isMobile ? (
+                      <div className="relative group rounded-xl border overflow-hidden shadow-sm">
+                        <embed
+                          src={`${projectPdf}#toolbar=0&navpanes=0&scrollbar=0`}
+                          type="application/pdf"
+                          className="w-full h-64 lg:h-72"
+                          onError={(e) => {
+                            // hide embed if not supported
+                            e.target.style.display = "none";
+                            const fallback = e.target.nextSibling;
+                            if (fallback) fallback.style.display = "flex";
+                          }}
+                        />
+                        {/* Fallback overlay (hidden until embed fails) */}
+                        <div
+                          style={{ display: "none" }}
+                          className="absolute inset-0 flex items-center justify-center bg-black/40 text-white text-sm md:text-base font-medium"
+                        >
+                          PDF preview not available —
+                          <a
+                            href={projectPdf}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="ml-2 underline text-orange-300 hover:text-orange-200"
+                          >
+                            Open in new tab
+                          </a>
+                        </div>
+                        {/* Hover overlay */}
                         <a
                           href={projectPdf}
                           target="_blank"
                           rel="noreferrer"
-                          className="ml-2 underline text-orange-300 hover:text-orange-200"
+                          className="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 group-hover:opacity-100 transition cursor-pointer"
+                        >
+                          <span className="text-white text-sm md:text-base font-medium inline-flex items-center gap-2">
+                            <IconFile />
+                            Open PDF
+                          </span>
+                        </a>
+                      </div>
+                    ) : (
+                      <div className="rounded-xl border p-4 text-center bg-blue-50 text-brand.blue text-sm">
+                        PDF preview not supported on mobile.  
+                        <a
+                          href={projectPdf}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="ml-1 underline text-brand.orange font-medium"
                         >
                           Open in new tab
                         </a>
                       </div>
-                      {/* Hover overlay when embed works */}
-                      <a
-                        href={projectPdf}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 group-hover:opacity-100 transition cursor-pointer"
-                      >
-                        <span className="text-white text-sm md:text-base font-medium inline-flex items-center gap-2">
-                          <IconFile />
-                          Open PDF
-                        </span>
-                      </a>
-                    </div>
-                    <p className="mt-2 text-xs text-brand.blue/70">
-                      If the preview does not load, use the buttons above to open or download.
-                    </p>
+                    )}
                   </div>
                 )}
               </div>
