@@ -24,7 +24,7 @@ export const profile = {
       role: "Visiting Scholar",
       org: "University of Waterloo",
       period: "Jul 2025 — Present",
-      image: "/exp/uwaterloo.jpg",
+      image: "/work-in-progress.jpg",
       link: "https://uwaterloo.ca/",
       bullets: [
         "Built Python apps with Transformers & vLLM to integrate LLMs with SQL/PostgreSQL.",
