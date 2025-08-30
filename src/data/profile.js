@@ -9,10 +9,10 @@ export const profile = {
     github: "https://github.com/MazenELSEDFY",
   },
   summary:
-    "Detail-oriented and motivated Computer Engineering graduate with 5+ years of hands-on experience in software development, systems engineering, data science, machine learning, and academic research. Proficient in multiple programming languages, and development frameworks. Demonstrated ability to collaborate across teams, manage projects, and apply technical skills to solve complex problems.",
+    "Detail-oriented and motivated Computer Engineering graduate with 5+ years of hands-on experience in software development, systems engineering, data science, machine learning, and academic research. Proficient in multiple programming languages and frameworks. Demonstrated ability to collaborate across teams, manage projects, and apply technical skills to solve complex problems.",
   skills: {
     languages: ["Python", "Java", "JavaScript", "TypeScript", "C++", "C#", "PHP", "SQL", "Swift"],
-    frameworks: ["Angular", "Hugging Face Transformers", "vLLM", "Scikit-learn", "Pandas","React","Git","Vercel","Vite"],
+    frameworks: ["Angular", "React", "Vite", "Hugging Face Transformers", "vLLM", "Scikit-learn", "Pandas"],
     web: ["HTML", "CSS", "REST APIs"],
     databases: ["PostgreSQL", "SQL"],
     tools: ["Git", "Unix/Linux", "Arduino", "Raspberry Pi"],
@@ -84,16 +84,26 @@ export const profile = {
   education: [
     {
       degree: "B.Sc. Computer Engineering",
-      school: "Arab Academy for Science and Technology, Alexandria, EG",
+      school: "Arab Academy for Science, Technology & Maritime Transport (AASTMT), Alexandria, Egypt",
       grad: "Jul 2025",
       project:
         "BCI for motor disabilities using Unicorn Black headset and P300 ERP detection to control educational apps and games.",
-      projectPdf: "/docs/graduation_project_book.pdf",  // path or URL to your PDF
-      schoolLogo: "/aastmt.png"   
+      projectPdf: "/docs/graduation_project_book.pdf",
+      schoolLogo: "/aastmt.png"
     },
   ],
   certificates: [
-    "Mobile App Development with Swift — ITI Egypt (Aug 2023)",
-    "Supervised Machine Learning — DeepLearning.AI & Stanford (Aug 2024)",
+    {
+      title: "Mobile App Development with Swift",
+      org: "ITI Egypt",
+      date: "Aug 2023",
+      link: ""
+    },
+    {
+      title: "Supervised Machine Learning",
+      org: "DeepLearning.AI & Stanford",
+      date: "Aug 2024",
+      link: ""
+    }
   ],
 };
