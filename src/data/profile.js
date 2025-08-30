@@ -12,7 +12,7 @@ export const profile = {
     "Detail-oriented and motivated Computer Engineering graduate with 5+ years of hands-on experience in software development, systems engineering, data science, machine learning, and academic research. Proficient in multiple programming languages, and development frameworks. Demonstrated ability to collaborate across teams, manage projects, and apply technical skills to solve complex problems.",
   skills: {
     languages: ["Python", "Java", "JavaScript", "TypeScript", "C++", "C#", "PHP", "SQL", "Swift"],
-    frameworks: ["Angular", "Hugging Face Transformers", "vLLM", "Scikit-learn", "Pandas"],
+    frameworks: ["Angular", "Hugging Face Transformers", "vLLM", "Scikit-learn", "Pandas","React","Git","Vercel","Vite"],
     web: ["HTML", "CSS", "REST APIs"],
     databases: ["PostgreSQL", "SQL"],
     tools: ["Git", "Unix/Linux", "Arduino", "Raspberry Pi"],
