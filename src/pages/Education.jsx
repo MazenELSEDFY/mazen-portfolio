@@ -29,7 +29,7 @@ export default function Education() {
 
   return (
     <Section title="Education">
-      <div className="space-y-6"> {/* full-width vertical stack */}
+      <div className="space-y-6">
         {education.map((ed, idx) => {
           const { degree, school, grad, project, projectPdf, schoolLogo } = ed || {};
 
@@ -92,7 +92,7 @@ export default function Education() {
                   )}
                 </div>
 
-                {/* PDF preview */}
+                {/* PDF preview with fallback */}
                 {projectPdf && (
                   <div className="lg:col-span-2">
                     <div className="relative group rounded-xl border overflow-hidden shadow-sm">
@@ -100,7 +100,29 @@ export default function Education() {
                         src={`${projectPdf}#toolbar=0&navpanes=0&scrollbar=0`}
                         type="application/pdf"
                         className="w-full h-64 lg:h-72"
+                        onError={(e) => {
+                          // hide embed if not supported
+                          e.target.style.display = "none";
+                          const fallback = e.target.nextSibling;
+                          if (fallback) fallback.style.display = "flex";
+                        }}
                       />
+                      {/* Fallback overlay (hidden until embed fails) */}
+                      <div
+                        style={{ display: "none" }}
+                        className="absolute inset-0 flex items-center justify-center bg-black/40 text-white text-sm md:text-base font-medium"
+                      >
+                        PDF preview not available —
+                        <a
+                          href={projectPdf}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="ml-2 underline text-orange-300 hover:text-orange-200"
+                        >
+                          Open in new tab
+                        </a>
+                      </div>
+                      {/* Hover overlay when embed works */}
                       <a
                         href={projectPdf}
                         target="_blank"
@@ -114,7 +136,7 @@ export default function Education() {
                       </a>
                     </div>
                     <p className="mt-2 text-xs text-brand.blue/70">
-                      Preview may be limited on some browsers. Use the buttons above to open or download.
+                      If the preview does not load, use the buttons above to open or download.
                     </p>
                   </div>
                 )}
