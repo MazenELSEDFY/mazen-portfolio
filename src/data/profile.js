@@ -88,7 +88,7 @@ export const profile = {
       grad: "Jul 2025",
       project:
         "BCI for motor disabilities using Unicorn Black headset and P300 ERP detection to control educational apps and games.",
-      projectPdf: "/docs/graduation_project_book.pdf",
+      projectPdf: "docs/graduation_project_book.pdf",
       schoolLogo: "/aastmt.png"
     },
   ],
