@@ -32,7 +32,7 @@ export default function Layout() {
           <div className="h-14 flex items-center justify-between gap-3">
             {/* Brand / Name */}
             <NavLink to="/" className="text-base sm:text-lg font-extrabold tracking-tight text-blue-600">
-              {profile.name?.split(" ")[0] || "Mazen's Profile"}
+              {profile.name?.split(" ")[0]+"'s Profile"|| "Mazen's Profile"}
             </NavLink>
 
             {/* Desktop nav */}
