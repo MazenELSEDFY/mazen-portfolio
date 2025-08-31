@@ -1,32 +1,6 @@
 {
   "rewrites": [
-    {
-      "source": "/((?!docs|slides|videos|images|assets|favicon\\.ico|robots\\.txt|apple-touch-icon\\.png|android-chrome-192x192\\.png|android-chrome-512x512\\.png).*)",
-      "destination": "/index.html"
-    }
-  ],
-  "headers": [
-    {
-      "source": "/docs/(.*)\\.pdf",
-      "headers": [
-        { "key": "Content-Type", "value": "application/pdf" }
-      ]
-    },
-    {
-      "source": "/slides/(.*)\\.pptx",
-      "headers": [
-        {
-          "key": "Content-Type",
-          "value": "application/vnd.openxmlformats-officedocument.presentationml.presentation"
-        }
-      ]
-    },
-    {
-      "source": "/videos/(.*)\\.mp4",
-      "headers": [
-        { "key": "Content-Type", "value": "video/mp4" }
-      ]
-    }
+    { "source": "/(.*)", "destination": "/" }
   ]
 }
 
