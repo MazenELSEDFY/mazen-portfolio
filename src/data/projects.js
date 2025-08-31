@@ -6,10 +6,10 @@ export const projects = [
     tags: ["Python", "FastAPI", "Hugging Face", "vLLM", "PostgreSQL"],
     blurb:
       "API that rewrites natural-language queries into optimized SQL using LLMs. Includes query analysis, rewrite heuristics, and latency/cost tracing.",
-    repo: "",                         // e.g., "https://github.com/MazenELSEDFY/llm-sql"
-    demo: "",                         // e.g., "https://llm-sql-demo.vercel.app"
+    repo: "",
+    demo: "",
     image: "/images/projects/llm-sql.jpg",
-    video: "",                        // e.g., "/videos/llm-sql-demo.mp4"
+    video: "",
     resources: {
       pdfs: [
         // { title: "Design Doc", href: "/docs/llm-sql-design.pdf" },
@@ -31,10 +31,10 @@ export const projects = [
     video: "",
     resources: {
       pdfs: [
-        // { title: "Model Report", href: "/docs/anomaly-report.pdf" },
+        { title: "AIOps Report (PDF)", href: "/docs/NBE_AIOps_Report_and_Presentation.pdf" },
       ],
       slides: [
-        { title: "AI_OPS (PPTX) ", href: "/slides/NBE AIOps Report & Presentation_.pdf" },
+        // keep empty unless you actually have a .pptx for this project
       ],
     },
   },
@@ -47,7 +47,7 @@ export const projects = [
     repo: "",
     demo: "",
     image: "/images/projects/bci-cover.jpg",
-    video: "/videos/bci-demo-silent.mp4", 
+    video: "/videos/bci-demo-silent.mp4",
     resources: {
       pdfs: [
         { title: "Project Book (PDF)", href: "/docs/graduation_project_book.pdf" },
