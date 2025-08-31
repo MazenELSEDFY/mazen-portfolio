@@ -33,7 +33,9 @@ export const projects = [
       pdfs: [
         // { title: "Model Report", href: "/docs/anomaly-report.pdf" },
       ],
-      slides: [],
+      slides: [
+        { title: "AI_OPS (PPTX) ", href: "/slides/NBE AIOps Report & Presentation_.pdf" },
+      ],
     },
   },
   {
