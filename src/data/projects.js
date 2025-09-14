@@ -9,21 +9,21 @@
 export const projects = [
   /* ---------- 1) LLM + SQL Semantic Rewriter ---------- */
   {
-    title: "LLM + SQL Semantic Rewriter",
+    title: "LLM–DBMS Semantic Processing: Comparative Evaluation",
     timeframe: "2025",
     tags: ["Python", "FastAPI", "Hugging Face", "vLLM", "PostgreSQL"],
     blurb:
-      "API that rewrites natural-language queries into optimized SQL using LLMs. Includes query analysis, rewrite heuristics, and latency/cost tracing.",
+      "I ran a head-to-head evaluation of LLM-powered database semantics—building SQL-shaped workloads (projection, filter, multi-LLM, aggregation, RAG) and benchmarking latency/cost across Lotus, DocETL, and Palimpsest. I analyzed operator behaviors and pricing drivers (call counts/tokens) and delivered recommendations—Lotus most efficient, DocETL strong control with overhead, Palimpsest robust but cost-heavy—shaping ongoing PhD-level LLM-DBMS research",
     repo: "",                  // e.g. "https://github.com/MazenELSEDFY/llm-sql"
     demo: "",                  // e.g. "https://llm-sql-demo.vercel.app"
     image: "/images/projects/llm-sql.jpg",
     video: "",                 // e.g. "/videos/llm-sql-demo.mp4"
     resources: {
       pdfs: [
-        // { title: "Design Doc (PDF)", href: "/docs/llm-sql-design.pdf" },
+        { title: "LLM–DBMS Semantic Processing: Comparative Evaluation Report (PDF)", href: "/docs/LLM-DBMS-REPORT.pdf" },
       ],
       slides: [
-        // { title: "Tech Talk (PPTX)", href: "/slides/llm-sql-talk.pptx" },
+        { title: "LLM–DBMS Semantic Processing: Comparative Evaluation Presentation (PPTX)", href: "/slides/LLM_DBMS_Comparative_Evaluation_2.pptx" },
       ],
     },
   },
