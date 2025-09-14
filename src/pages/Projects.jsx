@@ -25,7 +25,9 @@ function absoluteUrl(pathOrUrl) {
   try {
     return new URL(pathOrUrl).toString();
   } catch {
-    return `${window.location.origin}${pathOrUrl.startsWith("/") ? "" : "/"}${pathOrUrl}`;
+    const base = typeof window !== "undefined" ? window.location.origin : "";
+    const slash = pathOrUrl.startsWith("/") ? "" : "/";
+    return `${base}${slash}${pathOrUrl}`;
   }
 }
 function officeEmbedUrl(pptxHref) {
@@ -34,19 +36,30 @@ function officeEmbedUrl(pptxHref) {
   return `https://view.officeapps.live.com/op/embed.aspx?src=${encoded}`;
 }
 
-/* ---------- Color-coded, responsive ActionButton ---------- */
-function ActionButton({ href, icon, children, variant = "default", aria, download = false }) {
+/* ---------- Action Button (always contained) ---------- */
+function ActionButton({
+  href,
+  icon,
+  children,
+  variant = "default",
+  aria,
+  download = false,
+}) {
   if (!href) return null;
 
   const base =
-    "flex items-center justify-center gap-2 rounded-lg px-3 py-2 text-sm font-medium focus:outline-none focus:ring-2 transition w-full md:w-auto";
+    "inline-flex items-center justify-center gap-2 rounded-lg px-3 py-2 text-sm font-medium " +
+    "focus:outline-none focus:ring-2 focus:ring-offset-1 transition " +
+    "min-w-0 max-w-full overflow-hidden whitespace-nowrap";
+
   const variants = {
-    video: "bg-orange-500 text-white hover:bg-orange-600 focus:ring-orange-400",
-    github: "bg-gray-800 text-white hover:bg-gray-900 focus:ring-gray-500",
-    demo: "bg-blue-500 text-white hover:bg-blue-600 focus:ring-blue-400",
-    pdf: "bg-red-500 text-white hover:bg-red-600 focus:ring-red-400",
-    pptx: "bg-green-500 text-white hover:bg-green-600 focus:ring-green-400",
-    default: "bg-white border text-gray-700 hover:bg-gray-50 focus:ring-orange-400/40",
+    video: "bg-orange-500 text-white hover:bg-orange-600 ring-orange-400",
+    github: "bg-gray-800 text-white hover:bg-gray-900 ring-gray-500",
+    demo: "bg-blue-500 text-white hover:bg-blue-600 ring-blue-400",
+    pdf: "bg-red-500 text-white hover:bg-red-600 ring-red-400",
+    pptx: "bg-green-500 text-white hover:bg-green-600 ring-green-400",
+    default:
+      "bg-white border text-gray-700 hover:bg-gray-50 ring-orange-400/40",
   };
 
   return (
@@ -58,13 +71,13 @@ function ActionButton({ href, icon, children, variant = "default", aria, downloa
       {...(download ? { download: "" } : {})}
       className={`${base} ${variants[variant]}`}
     >
-      {icon}
-      <span className="truncate">{children}</span>
+      {icon ? <span className="shrink-0">{icon}</span> : null}
+      <span className="truncate flex-1 min-w-0">{children}</span>
     </a>
   );
 }
 
-/* ---------- Media Modal: video / pdf / pptx ---------- */
+/* ---------- Media Modal ---------- */
 function MediaModal({ open, onClose, mode, src, title }) {
   const prefersReducedMotion = useReducedMotion();
   const [canEmbed, setCanEmbed] = useState(true);
@@ -73,11 +86,12 @@ function MediaModal({ open, onClose, mode, src, title }) {
     if (open) setCanEmbed(true);
   }, [open, src, mode]);
 
-  const header = {
-    video: "Video",
-    pdf: "PDF",
-    pptx: "Slides",
-  }[mode || "video"];
+  const header =
+    {
+      video: "Video",
+      pdf: "PDF",
+      pptx: "Slides",
+    }[mode || "video"] || "Preview";
 
   const iframeSrc =
     mode === "pptx" ? officeEmbedUrl(src) : mode === "pdf" ? absoluteUrl(src) : "";
@@ -88,8 +102,14 @@ function MediaModal({ open, onClose, mode, src, title }) {
         <motion.div
           className="fixed inset-0 z-50 flex items-center justify-center p-4"
           initial={{ opacity: 0 }}
-          animate={{ opacity: 1, transition: { duration: prefersReducedMotion ? 0 : 0.15 } }}
-          exit={{ opacity: 0, transition: { duration: prefersReducedMotion ? 0 : 0.12 } }}
+          animate={{
+            opacity: 1,
+            transition: { duration: prefersReducedMotion ? 0 : 0.15 },
+          }}
+          exit={{
+            opacity: 0,
+            transition: { duration: prefersReducedMotion ? 0 : 0.12 },
+          }}
           role="dialog"
           aria-modal="true"
           aria-label={`${title} ${header} preview`}
@@ -97,9 +117,18 @@ function MediaModal({ open, onClose, mode, src, title }) {
           <div className="absolute inset-0 bg-black/70" onClick={onClose} />
           <motion.div
             className="relative bg-white rounded-xl shadow-xl w-full max-w-5xl overflow-hidden"
-            initial={{ scale: prefersReducedMotion ? 1 : 0.98, y: prefersReducedMotion ? 0 : 8, opacity: 0 }}
+            initial={{
+              scale: prefersReducedMotion ? 1 : 0.98,
+              y: prefersReducedMotion ? 0 : 8,
+              opacity: 0,
+            }}
             animate={{ scale: 1, y: 0, opacity: 1, transition: { duration: 0.18 } }}
-            exit={{ scale: prefersReducedMotion ? 1 : 0.98, y: prefersReducedMotion ? 0 : 8, opacity: 0, transition: { duration: 0.12 } }}
+            exit={{
+              scale: prefersReducedMotion ? 1 : 0.98,
+              y: prefersReducedMotion ? 0 : 8,
+              opacity: 0,
+              transition: { duration: 0.12 },
+            }}
           >
             <button
               type="button"
@@ -155,7 +184,7 @@ function MediaModal({ open, onClose, mode, src, title }) {
   );
 }
 
-/* ---------- Preview Tile ---------- */
+/* ---------- Media Preview ---------- */
 function MediaPreview({ project, onOpen }) {
   const [videoError, setVideoError] = useState(false);
   const prefersReducedMotion = useReducedMotion();
@@ -169,7 +198,7 @@ function MediaPreview({ project, onOpen }) {
         type="button"
         className="relative w-full aspect-[16/9] rounded-lg overflow-hidden border group"
         onClick={() => onOpen("video", project.video)}
-        aria-label="Open video preview"
+        aria-label={`Open video preview for ${project.title}`}
       >
         <video
           className="w-full h-full object-cover"
@@ -215,6 +244,15 @@ function MediaPreview({ project, onOpen }) {
   return null;
 }
 
+/* ---------- Tag Chip ---------- */
+function Tag({ children }) {
+  return (
+    <span className="inline-block text-xs px-2 py-1 rounded bg-orange-50 text-orange-700 border border-orange-200">
+      {children}
+    </span>
+  );
+}
+
 /* ---------- Project Card ---------- */
 function ProjectCard({ p }) {
   const pdfs = p.resources?.pdfs ?? [];
@@ -232,58 +270,95 @@ function ProjectCard({ p }) {
   return (
     <motion.article
       variants={{ hidden: { opacity: 0, y: 10 }, show: { opacity: 1, y: 0 } }}
-      className="bg-white border rounded-xl p-4 shadow-sm flex flex-col gap-4"
+      className="bg-white border rounded-xl p-4 shadow-sm flex flex-col gap-4 overflow-hidden min-w-0"
       whileHover={{ y: -3 }}
     >
       <MediaPreview project={p} onOpen={openModal} />
 
-      <div className="flex items-baseline justify-between gap-2">
-        <h3 className="text-lg font-semibold text-blue-600">{p.title}</h3>
+      <div className="flex items-start justify-between gap-3 min-w-0">
+        <h3 className="text-lg font-semibold text-blue-600 truncate">{p.title}</h3>
         {p.timeframe && (
-          <span className="inline-block text-xs px-2 py-1 rounded-md bg-gray-100 text-gray-700">
+          <span className="shrink-0 inline-block text-xs px-2 py-1 rounded-md bg-gray-100 text-gray-700">
             {p.timeframe}
           </span>
         )}
       </div>
 
-      {p.blurb && <p className="text-gray-700">{p.blurb}</p>}
+      {p.blurb && (
+        <p className="text-gray-700 leading-relaxed break-words">{p.blurb}</p>
+      )}
 
       {Array.isArray(p.tags) && p.tags.length > 0 && (
         <div className="flex flex-wrap gap-2">
           {p.tags.map((t, i) => (
-            <span
-              key={i}
-              className="inline-block text-xs px-2 py-1 rounded bg-orange-50 text-orange-700 border border-orange-200"
-            >
-              {t}
-            </span>
+            <Tag key={i}>{t}</Tag>
           ))}
         </div>
       )}
 
-      <div className="flex flex-col md:flex-row flex-wrap gap-2 pt-2 border-t">
-        <ActionButton href={p.video} icon={<Play size={16} />} aria={`Open video for ${p.title}`} variant="video">
+      {/* Actions: responsive grid that wraps; buttons truncate within card */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 pt-2 border-t min-w-0">
+        <ActionButton
+          href={p.video}
+          icon={<Play size={16} />}
+          aria={`Open video for ${p.title}`}
+          variant="video"
+        >
           Play Video
         </ActionButton>
-        <ActionButton href={p.repo} icon={<Github size={16} />} aria={`Open GitHub for ${p.title}`} variant="github">
+
+        <ActionButton
+          href={p.repo}
+          icon={<Github size={16} />}
+          aria={`Open GitHub for ${p.title}`}
+          variant="github"
+        >
           GitHub
         </ActionButton>
-        <ActionButton href={p.demo} icon={<ExternalLink size={16} />} aria={`Open live demo for ${p.title}`} variant="demo">
+
+        <ActionButton
+          href={p.demo}
+          icon={<ExternalLink size={16} />}
+          aria={`Open live demo for ${p.title}`}
+          variant="demo"
+        >
           Live Demo
         </ActionButton>
+
         {pdfs.map((r, i) => (
-          <ActionButton key={`pdf-${i}`} href={r.href} icon={<FileText size={16} />} aria={r.title} variant="pdf" download>
-            {r.title}
+          <ActionButton
+            key={`pdf-${i}`}
+            href={r.href}
+            icon={<FileText size={16} />}
+            aria={r.title}
+            variant="pdf"
+            download
+          >
+            {r.title || "PDF"}
           </ActionButton>
         ))}
+
         {slides.map((r, i) => (
-          <ActionButton key={`pptx-${i}`} href={r.href} icon={<FileSpreadsheet size={16} />} aria={r.title} variant="pptx" download>
-            {r.title}
+          <ActionButton
+            key={`pptx-${i}`}
+            href={r.href}
+            icon={<FileSpreadsheet size={16} />}
+            aria={r.title}
+            variant="pptx"
+            download
+          >
+            {r.title || "Slides"}
           </ActionButton>
         ))}
       </div>
 
-      <MediaModal open={modalOpen} onClose={() => setModalOpen(false)} mode={modalMode} src={modalSrc} title={p.title} />
+      <MediaModal
+        open={modalOpen}
+        onClose={() => setModalOpen(false)}
+        mode={modalMode}
+        src={modalSrc}
+        title={p.title}
+      />
     </motion.article>
   );
 }
